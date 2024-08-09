@@ -6,6 +6,8 @@ import {
 } from "react-router-dom";
 import { TimeDeal, BrandDeal } from "@/pages";
 import { Suspense } from "react";
+import { ThemeProvider } from "styled-components";
+import theme from "@/styles/Theme";
 
 export const webPath = {
   timeDeal: () => "/deals/time-deal",
@@ -17,7 +19,11 @@ type MainLayoutProps = {
 };
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
-  return children;
+  return (
+    <ThemeProvider theme={theme}>
+      {children}
+    </ThemeProvider>
+  );
 };
 
 const Root = () => {
