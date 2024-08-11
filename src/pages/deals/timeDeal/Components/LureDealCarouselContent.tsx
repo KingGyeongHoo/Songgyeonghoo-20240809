@@ -12,7 +12,7 @@ export const LureDealCarouselContent = ({content} : Content) => {
     return(
         <LureDealCarouselContentDiv>
             <LureDealCarouselContentImgDiv>
-                <LureDealCarouselContentImg src={content.image}></LureDealCarouselContentImg>
+                <img src={content.image} />
             </LureDealCarouselContentImgDiv>
             <LureDealCarouselContentDescDiv>
                 <LureDealCarouselContentTitle>{content.title}</LureDealCarouselContentTitle>
@@ -43,17 +43,17 @@ const LureDealCarouselContentDiv = styled.div`
 const LureDealCarouselContentImgDiv = styled.div`
     width: 100%;
     height: 142px;
-`
 
-const LureDealCarouselContentImg = styled.img`
-    width:100%;
-    height: 100%;
+    img{
+        width:100%;
+        height: 100%;
+    }
 `
 
 const LureDealCarouselContentDescDiv = styled.div`
     display: flex;
     flex-direction: column;
-    width: 126px;
+    width: fit-content;
     height: 76px;
     margin: 0 10px;
 `

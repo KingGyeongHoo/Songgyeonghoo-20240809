@@ -4,6 +4,8 @@ import { Chevron } from "@/assets";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./index.module.css";
+import { useRecoilState } from "recoil";
+import { brandDealQueryPage } from "@/recoil/brandDealQueryPage";
 
 export type HeaderProps = {
   title: string;
@@ -12,8 +14,10 @@ export type HeaderProps = {
 
 export const Header = memo(({ title, isBackButtonVisible }: HeaderProps) => {
   const navigate = useNavigate();
+  const [brandDealQuery, setBrandDealQuery] = useRecoilState(brandDealQueryPage)
 
   const handleClickBack = () => {
+    setBrandDealQuery(1)
     navigate(-1);
   };
 

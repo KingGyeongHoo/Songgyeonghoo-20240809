@@ -6,6 +6,11 @@ html {
   font-family: Pretendard, sans-serif;
 }
 
+header {
+  position: relative;
+  z-index: 100;
+}
+
 body {
   max-width: 600px;
   height: 100%;

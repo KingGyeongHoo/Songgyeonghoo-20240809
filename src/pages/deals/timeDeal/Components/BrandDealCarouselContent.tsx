@@ -40,7 +40,7 @@ export const BrandDealCarouselContent= ({content} : Content) => {
     return(
         <BrandDealCarouselContentDiv>
             <BrandDealCarouselContentImgDiv>
-                <BrandDealCarouselContentImg src={content.image}></BrandDealCarouselContentImg>
+                <img src={content.image} />
             </BrandDealCarouselContentImgDiv>
             <BrandDealCarouselContentDescDiv>
                 <BrandDealCarouselContentLastTiemDiv>{lastTime}</BrandDealCarouselContentLastTiemDiv>
@@ -71,19 +71,19 @@ const BrandDealCarouselContentDiv = styled.div`
 const BrandDealCarouselContentImgDiv = styled.div`
     width: 120px;
     height: 120px;
-`
 
-const BrandDealCarouselContentImg = styled.img`
-    width:100%;
+    img{
+        width:100%;
     height: 100%;
     border-radius: 8px;
+    }
 `
 
 const BrandDealCarouselContentDescDiv = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 120px;
+    width: fit-content;
     height: 86px;
     margin: 0 10px;
 `
@@ -93,6 +93,8 @@ const BrandDealCarouselContentLastTiemDiv = styled.div`
     background-color: ${({theme}) => theme.Color.Red50};
     color: ${({theme}) => theme.Color.Primary500};
     padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 12px;
 `
 
 const BrandDealCarouselContentTitle = styled.div`

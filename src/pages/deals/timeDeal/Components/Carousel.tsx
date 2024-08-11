@@ -21,7 +21,7 @@ interface ContentData {
 export const Carousel: React.FC<ContentData> = ({data, dealType}) => {
     return (
         <CarouselContentContainer>
-            {data.map((content) => dealType === 'LURE' ? 
+            {data?.map((content:ContentDataProps) => dealType === 'LURE' ? 
                 <LureDealCarouselContent key={content.id} content={content} /> :
                 <BrandDealCarouselContent key={content.id} content={content}  />)}
         </CarouselContentContainer>
