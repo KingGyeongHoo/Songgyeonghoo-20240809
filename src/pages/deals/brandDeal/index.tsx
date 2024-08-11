@@ -7,11 +7,13 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { BrandDealContent } from "./Components/BrandDealContent";
 import { ContentDataProps } from "../timeDeal/Components/Carousel";
 import { brandDealQueryPage } from "@/recoil/brandDealQueryPage";
+import { brandDealGlobalData } from "@/recoil/brandDealData";
 import { error } from "@/recoil/error";
 import { ErrorComponent } from "@/pages/Error";
 
 const BrandDeal = () => {
-  const [brandDealData, setBrandDealData] = useState<ContentDataProps[]>([])
+  const firstBrandDealData = useRecoilValue(brandDealGlobalData)
+  const [brandDealData, setBrandDealData] = useState<ContentDataProps[]>(firstBrandDealData)
   const [isLastPage, setIsLastPage] = useState(false)
   const [isError, setIsError] = useRecoilState(error)
   const queryPage = useRecoilValue(brandDealQueryPage)
@@ -23,9 +25,7 @@ const BrandDeal = () => {
             const newData = response.data.itemList
             const isLastPage = response.data.isLastPage
 
-            if (brandDealData.length === 0) {
-              setBrandDealData(newData);
-            } else {
+            if(queryPage !== 1){
               setBrandDealData(prevData => [...prevData, ...newData]);
             }
 

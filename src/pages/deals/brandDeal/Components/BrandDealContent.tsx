@@ -1,17 +1,32 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import { useInView } from "react-intersection-observer";
 import { useRecoilState } from "recoil";
 import { brandDealQueryPage } from "@/recoil/brandDealQueryPage";
 
 import { ContentDataProps } from "../../timeDeal/Components/Carousel";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface Content {
     content: ContentDataProps
     isLastItem:boolean
 }
 
+interface ProgressBarProps {
+    percentage: number
+    isView: boolean
+}
+
+const fillAnimation = (percentage: number) => keyframes`
+    0% {
+        width: 0;
+    }
+    100% {
+        width: ${percentage}%;
+    }
+`;
+
 export const BrandDealContent = ({content, isLastItem}: Content) => {
+    const [isView, setIsView] = useState(false)
     const [queryPage, setQueryPage] = useRecoilState(brandDealQueryPage)
 
     const { ref, inView } = useInView({
@@ -20,6 +35,9 @@ export const BrandDealContent = ({content, isLastItem}: Content) => {
       })
 
     useEffect(() => {
+    if(inView){
+        setIsView(true)
+    }
     if (inView && isLastItem) {
         setQueryPage(queryPage + 1)
     }
@@ -32,7 +50,7 @@ export const BrandDealContent = ({content, isLastItem}: Content) => {
             <BrandDealContentDescDiv>
                 <BrandDealContentTitleDiv>
                     <BrandDealContentTitle>{content.title}</BrandDealContentTitle>
-                    <BrandDealContentProgressBar>
+                    <BrandDealContentProgressBar percentage={content.discountRate} isView={isView}>
                         <div />
                         <span>{content.discountRate}%</span>
                     </BrandDealContentProgressBar>
@@ -91,7 +109,7 @@ const BrandDealContentTitle = styled.div`
     font-size: 16px;
 `
 
-const BrandDealContentProgressBar = styled.div`
+const BrandDealContentProgressBar = styled.div<ProgressBarProps>`
     position: relative;
     width: 100%;
     height: 16px;
@@ -104,9 +122,10 @@ const BrandDealContentProgressBar = styled.div`
         position: absolute;
         top: 0;
         left: 0;
-        width: 50%;
+        width: ${props => props.percentage}%;
         height: 100%;
         background-color: ${({theme}) => theme.Color.Orange500};
+        animation: ${props => props.isView && fillAnimation(props.percentage)} 1s ease-in-out forwards;
     }
 
     span{

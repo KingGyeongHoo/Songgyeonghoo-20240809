@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { useRecoilState } from "recoil";
 
 import { Carousel } from "./Components/Carousel";
 import { ErrorComponent } from "@/pages/Error";
+import { brandDealGlobalData } from "@/recoil/brandDealData";
 
 interface BrandDealSummaryProps {
     onClickHandler: () => void;
 }
 
 export const BrandDealSection: React.FC<BrandDealSummaryProps> = ({onClickHandler}) => {
-    const [brandDealData, setBrandDealData] = useState([])
+    const [brandDealData, setBrandDealData] = useRecoilState(brandDealGlobalData)
     const [isError, setIsError] = useState(false)
 
     useEffect(() => {
